@@ -4,7 +4,7 @@ version: 1.0.0
 stage: stable
 slug: pgsqlbackup
 description: Postgresql backup Add-on for Home Assistant.
-url: https://github.com/guirem/hassos-addons/tree/main/addon-pgsqlbackup
+url: https://github.com/guirem/hassos-addons/tree/main/pgsqlbackup
 image: 'guirem/hassos-addon-pgsqlbackup-{arch}'
 arch:
   - aarch64

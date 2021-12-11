@@ -1,0 +1,55 @@
+---
+name: Postgresql Backup
+version: 1.0.0
+stage: stable
+slug: pgsqlbackup
+description: Postgresql backup Add-on for Home Assistant.
+url: https://github.com/guirem/hassos-addons/tree/main/addon-pgsqlbackup
+image: 'guirem/hassos-addon-pgsqlbackup-{arch}'
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+boot: auto
+init: true
+stdin: true
+map:
+  - share:rw
+#environment:
+#  TZ: 'Europe/Paris'
+options:
+  dbsettings:
+    postgres_host: 77b2833f-timescaledb
+    postgres_db: homeassistant
+    postgres_user: postgres
+    postgres_password: homeassistant
+    postgres_port: 5432
+    postgres_cluster: false
+  dump_extra_opts: '-Z6 --blobs'
+  backup_suffix: '.sql.gz'
+  schedule: 
+    enable: true
+    cron: '@daily'
+    backup_keep_days: 7
+    backup_keep_weeks: 3
+    backup_keep_months: 6
+  log_level: info
+schema:
+  dbsettings:
+    postgres_host: str
+    postgres_db: str
+    postgres_user: str
+    postgres_password: str
+    postgres_port: int(1,9999)
+  dump_extra_opts: str
+  backup_suffix: str
+  schedule: 
+    enable: bool
+    cron: 'match((@(annually|yearly|monthly|weekly|daily|hourly|reboot))|(@every (\d+(ns|us|µs|ms|s|m|h))+)|(^((?!\*-)((\d+,)+\d+|([\d\*]+(\/|-)\d+)|\d+|(?<!\d)\*(?!\d)) ?){5,7}))'
+    backup_keep_days: int(0,400)
+    backup_keep_weeks: int(0,100)
+    backup_keep_months: int(0,12)
+  log_level: 'list(trace|debug|info|notice|warning|error|fatal)?'

@@ -85,11 +85,11 @@ Output directory is /share/pgsqlbackup.
 ```yaml
   service: hassio.addon_stdin
   data:
-    addon: 80e24959_pgsqlbackup  
+    addon: c8fd9f84_pgsqlbackup  
     input: 
         command: backup
         output: backup.sql.gz
-        extra_args: -Z6
+        extra_args: --format=custom
 ```
 
 
@@ -103,8 +103,9 @@ input directory is /share/pgsqlbackup.
 ```yaml
   service: hassio.addon_stdin
   data:
-    addon: 80e24959_pgsqlbackup
+    addon: c8fd9f84_pgsqlbackup
     input: 
         command: restore
         input: backup.sql.gz
+        extra_args: '--clean'
 ```
